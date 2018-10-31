@@ -1,13 +1,16 @@
 FROM php:7.2-apache
 
 COPY rockmongo /var/www/html
-#COPY php.ini /usr/local/lib/php.ini
 
 WORKDIR /var/www/html
 
 RUN apt-get update \
     && apt-get install -y \
+        libcurl4-openssl-dev \
+        pkg-config \
+        libssl-dev \
         git \
+        vim-tiny \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
